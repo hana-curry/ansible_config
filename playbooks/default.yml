@@ -11,6 +11,7 @@
     gitea_domain: git.woomy.be
     gitea_proto: http
   roles:
+    - timezone
     - pm
     - users
     - firewall
