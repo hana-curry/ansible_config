@@ -1,0 +1,78 @@
+---
+- name: Set services home path
+  ansible.builtin.set_fact:
+    freshrss_dir: "{{ services_homedir }}/freshrss"
+
+- name: Create freshrss docker-compose directory
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.file:
+    path: "{{ freshrss_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Check if docker-compose.yml already exists and get its checksum
+  ansible.builtin.stat:
+    path: "{{ freshrss_dir }}/docker-compose.yml"
+  register: docker_compose_yml
+
+- name: Create a temporary file for comparing our yml
+  ansible.builtin.tempfile:
+    state: file
+  register: temp_yml
+
+- name: Copy our yml to temp file
+  ansible.builtin.copy:
+    src: 'docker-compose.yml'
+    dest: "{{ temp_yml.path }}"
+    mode: "0755"
+  register: new_yml
+
+# We must stop freshrss before modifying the docker-compose.yml file
+- name: Ensure freshrss is stopped
+  become: true
+  become_user: "{{ docker_user }}"
+  environment:
+    XDG_RUNTIME_DIR: /run/user/{{ docker_user_info.uid }}
+    PATH: "{{ docker_user_info.home }}/bin:{{ ansible_env.PATH }}"
+    DOCKER_HOST: "unix:///run/user/{{ docker_user_info.uid }}/docker.sock"
+  community.docker.docker_compose_v2:
+    project_src: "{{ freshrss_dir }}"
+    state: absent
+  when: docker_compose_yml.stat.exists and (docker_compose_yml.stat.checksum != new_yml.checksum)
+
+- name: Copy docker-compose.yml
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.copy:
+    src: "docker-compose.yml"
+    dest: "{{ freshrss_dir }}/docker-compose.yml"
+    mode: "0755"
+
+- name: Copy env file
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.template:
+    src: "env.j2"
+    dest: "{{ freshrss_dir }}/.env"
+    mode: "0755"
+
+- name: Copy caddy site configuration
+  ansible.builtin.copy:
+    src: "rss.woomy.be.Caddyfile"
+    dest: "/etc/caddy/sites/rss.woomy.be.Caddyfile"
+    mode: "0755"
+  notify:
+    - Restart caddy.service
+
+- name: Start freshrss
+  become: true
+  become_user: "{{ docker_user }}"
+  environment:
+    XDG_RUNTIME_DIR: /run/user/{{ docker_user_info.uid }}
+    PATH: "{{ docker_user_info.home }}/bin:{{ ansible_env.PATH }}"
+    DOCKER_HOST: "unix:///run/user/{{ docker_user_info.uid }}/docker.sock"
+  community.docker.docker_compose_v2:
+    project_src: "{{ freshrss_dir }}"
+    state: present
+  when: not docker_compose_yml.stat.exists or (docker_compose_yml.stat.checksum != new_yml.checksum)
