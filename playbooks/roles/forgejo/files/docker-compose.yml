@@ -24,6 +24,8 @@ services:
       - forgejo
     volumes:
       - forgejo-postgres:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:6900:5432"
 
 volumes:
   forgejo-data:
