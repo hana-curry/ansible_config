@@ -1,0 +1,20 @@
+---
+- name: Include the konstruktoid.docker_rootless role (configure docker)
+  ansible.builtin.import_role:
+    name: konstruktoid.docker_rootless
+  vars:
+    docker_compose: true
+    docker_release_shasum: fa56a890c16ca83715d7e62b351ff0528fcb92f70100129caf6382a8945b95fb
+    docker_release_rootless_shasum: 58d98940fc5d57d18b761c25e146fa662bf4868220af20d98f92d9d39c409e76
+
+- name: Set services homedir variable
+  ansible.builtin.set_fact:
+    services_homedir: "{{ docker_user_info.home }}/{{ services_dirname }}"
+
+- name: Create a directory for docker compose files
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.file:
+    path: "{{ services_homedir }}"
+    state: directory
+    mode: "0700"

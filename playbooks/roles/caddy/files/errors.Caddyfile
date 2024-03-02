@@ -1,0 +1,8 @@
+(custom_errors) {
+    handle_errors {
+        root * /home/woomy/Services/static/custom_pages/errors
+        file_server
+        templates
+        rewrite * /error.html
+    }
+}

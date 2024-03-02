@@ -1,0 +1,80 @@
+---
+- name: Install DNF Copr command
+  ansible.builtin.dnf:
+    name: 'dnf-command(copr)'
+    state: latest
+
+- name: Enable caddy copr
+  community.general.copr:
+    state: enabled
+    name: '@caddy/caddy'
+
+- name: Install caddy
+  ansible.builtin.dnf:
+    name: caddy
+    state: latest
+  notify:
+    - Start caddy.service
+    - Enable caddy.service
+
+- name: Allow HTTP traffic in firewalld
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    state: enabled
+  notify:
+    - Reload firewalld.service
+
+- name: Allow HTTPS traffic in firewalld
+  ansible.posix.firewalld:
+    service: https
+    permanent: true
+    state: enabled
+  notify:
+    - Reload firewalld.service
+
+- name: Copy caddy.conf jail
+  ansible.builtin.copy:
+    src: 'jail_caddy.conf'
+    dest: '/etc/fail2ban/jail.d/caddy.conf'
+    mode: "0640"
+  notify:
+    - Reload fail2ban.service
+
+- name: Copy caddy.conf filter
+  ansible.builtin.copy:
+    src: 'filter_caddy.conf'
+    dest: '/etc/fail2ban/filter.d/caddy.conf'
+    mode: "0640"
+  notify:
+    - Reload fail2ban.service
+
+- name: Create caddy helpers dir
+  ansible.builtin.file:
+    state: directory
+    path: /etc/caddy/helpers
+    mode: "0755"
+
+- name: Create caddy sites dir
+  ansible.builtin.file:
+    state: directory
+    path: /etc/caddy/sites
+    mode: "0755"
+
+- name: Copy main Caddyfile
+  ansible.builtin.copy:
+    src: Caddyfile
+    dest: /etc/caddy/Caddyfile
+    mode: "0755"
+
+- name: Copy log helper
+  ansible.builtin.copy:
+    src: log.Caddyfile
+    dest: /etc/caddy/helpers/log.Caddyfile
+    mode: "0755"
+
+- name: Copy errors helper
+  ansible.builtin.copy:
+    src: errors.Caddyfile
+    dest: /etc/caddy/helpers/errors.Caddyfile
+    mode: "0755"

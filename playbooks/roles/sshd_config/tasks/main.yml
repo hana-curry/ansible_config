@@ -1,0 +1,40 @@
+---
+- name: Copy sshd configuration
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    mode: "0600"
+  notify:
+    - Reload sshd.service
+
+- name: Create the .ssh directory
+  ansible.builtin.file:
+    path: "{{ system_user_info.home }}/.ssh"
+    state: "directory"
+    mode: "0700"
+    owner: "{{ system_user }}"
+    group: "{{ system_user }}"
+
+- name: Add my key to authorized_keys
+  ansible.builtin.copy:
+    src: "authorized_keys"
+    dest: "{{ system_user_info.home }}/.ssh/authorized_keys"
+    mode: "0600"
+    owner: "{{ system_user }}"
+    group: "{{ system_user }}"
+
+- name: Open SSH port
+  ansible.posix.firewalld:
+    port: "{{ sshd_port }}/tcp"
+    permanent: true
+    state: enabled
+  notify:
+    - Reload firewalld.service
+
+- name: Install fail2ban configuration
+  ansible.builtin.template:
+    src: "sshd_fail2ban.conf.j2"
+    dest: "/etc/fail2ban/jail.d/sshd.conf"
+    mode: "0640"
+  notify:
+    - Reload fail2ban.service

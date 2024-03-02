@@ -1,0 +1,15 @@
+---
+- name: Enable caddy.service
+  ansible.builtin.systemd:
+    name: caddy.service
+    enabled: true
+
+- name: Start caddy.service
+  ansible.builtin.systemd:
+    name: caddy.service
+    state: started
+
+- name: Restart caddy.service
+  ansible.builtin.systemd:
+    name: caddy.service
+    state: restarted

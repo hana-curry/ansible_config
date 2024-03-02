@@ -1,0 +1,18 @@
+---
+- name: Create the "sudo" group
+  ansible.builtin.group:
+    name: sudo
+
+- name: Register system user info
+  ansible.builtin.user:
+    name: "{{ system_user }}"
+    shell: /bin/bash
+    groups: sudo, systemd-journal
+    append: true
+  register: system_user_info
+
+- name: Register Docker user info
+  ansible.builtin.user:
+    name: "{{ docker_user }}"
+    shell: /bin/bash
+  register: docker_user_info

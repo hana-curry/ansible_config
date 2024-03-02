@@ -1,0 +1,22 @@
+---
+- name: Setup everything
+  hosts: all
+  become: true
+  vars:
+    system_user: woomy
+    docker_user: docker
+    sshd_port: 22
+    services_dirname: services
+    gitea_app_name: "Woomy's git"
+    gitea_domain: git.woomy.be
+    gitea_proto: http
+  roles:
+    - pm
+    - users
+    - firewall
+    - fail2ban
+    - sshd_config
+    - dnf_automatic
+    - caddy
+    - docker
+    - forgejo

@@ -1,0 +1,10 @@
+# Vagrant VMs
+.vagrant
+
+# Inventories
+inventories
+
+# Secrets yml
+secrets.yml.enc
+.vaultpw
+

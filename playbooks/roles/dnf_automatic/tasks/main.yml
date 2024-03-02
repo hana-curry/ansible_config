@@ -1,0 +1,31 @@
+---
+- name: Install dnf-automatic
+  ansible.builtin.dnf:
+    name: dnf-automatic
+    state: latest
+
+- name: Enable updates application
+  community.general.ini_file:
+    path: /etc/dnf/automatic.conf
+    section: commands
+    option: apply_updates
+    value: true
+    mode: 644
+
+- name: Enable reboot when needed
+  community.general.ini_file:
+    path: /etc/dnf/automatic.conf
+    section: commands
+    option: reboot
+    value: when-needed
+    mode: 644
+
+- name: Enable dnf-automatic.timer
+  ansible.builtin.systemd:
+    name: dnf-automatic.timer
+    enabled: true
+
+- name: Start dnf-automatic.timer
+  ansible.builtin.systemd:
+    name: dnf-automatic.timer
+    state: started

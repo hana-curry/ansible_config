@@ -1,0 +1,5 @@
+#gitea.woomy.be www.gitea.woomy.be git.woomy.be www.git.woomy.be {
+:80 {
+        import log git.woomy.be
+        reverse_proxy localhost:3000
+}

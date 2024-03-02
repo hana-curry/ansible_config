@@ -1,0 +1,8 @@
+---
+- name: Install FirewallD
+  ansible.builtin.dnf:
+    name: "firewalld"
+    state: latest
+  notify:
+    - Enable firewalld.service
+    - Start firewalld.service
