@@ -13,9 +13,16 @@
   ansible.builtin.dnf:
     name: caddy
     state: latest
-  notify:
-    - Start caddy.service
-    - Enable caddy.service
+
+- name: Enable caddy.service
+  ansible.builtin.systemd:
+    name: caddy.service
+    enabled: true
+
+- name: Start caddy.service
+  ansible.builtin.systemd:
+    name: caddy.service
+    state: started
 
 - name: Allow HTTP traffic in firewalld
   ansible.posix.firewalld:
@@ -78,3 +85,11 @@
     src: errors.Caddyfile
     dest: /etc/caddy/helpers/errors.Caddyfile
     mode: "0755"
+
+- name: Create caddy log directory
+  ansible.builtin.file:
+    path: /var/log/caddy
+    state: directory
+    mode: "0755"
+    owner: caddy
+    group: caddy
