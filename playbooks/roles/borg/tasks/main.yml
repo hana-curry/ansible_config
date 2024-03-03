@@ -55,3 +55,9 @@
   ansible.builtin.systemd:
     name: "borgmatic.timer"
     enabled: true
+
+- name: Copy host key to known_hosts
+  ansible.builtin.copy:
+    content: "{{ borg_host_key }}"
+    dest: '/root/.ssh/known_hosts'
+    mode: "0600"

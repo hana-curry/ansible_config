@@ -28,7 +28,6 @@
     vaultwarden_proto: http
     vaultwarden_domain: bitwarden.woomy.be
     vaultwarden_smtp_from: "vaultwarden@woomy.be"
-
   roles:
     - timezone
     - pm
