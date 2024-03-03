@@ -20,7 +20,7 @@ ROOT_URL = {{ gitea_proto }}://{{ gitea_domain }}/
 DISABLE_SSH = {{ gitea_disable_ssh | default(false) }}
 ; In rootless gitea container only internal ssh server is supported
 START_SSH_SERVER = true
-SSH_PORT = {{ gitea_ssh_port | default(2222) }}
+SSH_PORT = {{ gitea_ssh_port | default(22) }}
 SSH_LISTEN_PORT = {{ gitea_ssh_port | default(2222) }}
 BUILTIN_SSH_SERVER_USER = git
 LFS_START_SERVER = true

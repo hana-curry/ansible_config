@@ -9,6 +9,7 @@
     name: konstruktoid.docker_rootless
   vars:
     docker_compose: true
+    docker_allow_privileged_ports: true
     docker_release_shasum: fa56a890c16ca83715d7e62b351ff0528fcb92f70100129caf6382a8945b95fb
     docker_release_rootless_shasum: 58d98940fc5d57d18b761c25e146fa662bf4868220af20d98f92d9d39c409e76
     docker_rootless_service_template: docker_rootless.service.custom.j2
