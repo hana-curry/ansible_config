@@ -23,6 +23,13 @@
     owner: "{{ system_user }}"
     group: "{{ system_user }}"
 
+- name: Allow SSHD to listen on ssh port
+  community.general.seport:
+    ports: "{{ sshd_port }}"
+    proto: tcp
+    setype: ssh_port_t
+    state: present
+
 - name: Open SSH port
   ansible.posix.firewalld:
     port: "{{ sshd_port }}/tcp"
