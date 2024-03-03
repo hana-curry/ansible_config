@@ -19,9 +19,10 @@
     borgmatic_timer_minute: 30
     borg_source_directories:
       - "{{ docker_user_info.home }}/.local/share/docker/volumes/"
+      - /var/www/files
     # We backup postgres databases using hooks
     borg_exclude_patterns:
-      - 'volumes/*postgres/'
+      - 'sh:{{ docker_user_info.home }}/.local/share/docker/volumes/*-postgres*'
     borgmatic_hooks:
       before_backup:
         - echo "`date` - Starting backup."

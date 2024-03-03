@@ -55,6 +55,14 @@
     dest: "{{ static_path }}/well-known/openpgpkey/hu/mscrnig88g4mzagk5ytb4ioz7yg51f67"
     mode: "0755"
 
+- name: Create files.woomy.be directories
+  become: true
+  become_user: "{{ system_user }}"
+  ansible.builtin.file:
+    path: "{{ static_path }}/files"
+    state: directory
+    mode: "0755"
+
 - name: Install static caddy config
   ansible.builtin.template:
     src: 'woomy.be.Caddyfile.j2'

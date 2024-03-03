@@ -11,3 +11,12 @@ www.woomy.be woomy.be {
         file_server
     }
 }
+
+files.woomy.be www.files.woomy.be {
+    import log files.woomy.be
+    import custom_errors
+    handle {
+        root * {{ static_path }}/files
+        file_server browse
+    }
+}
