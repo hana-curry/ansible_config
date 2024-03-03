@@ -1,4 +1,4 @@
 rss.woomy.be www.rss.woomy.be {
-    import log rss.woomy.be
+    import log
     reverse_proxy localhost:3001
 }
