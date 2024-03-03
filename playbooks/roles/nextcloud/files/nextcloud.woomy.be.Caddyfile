@@ -1,0 +1,5 @@
+nextcloud.woomy.be www.nextcloud.woomy.be {
+    import log nextcloud.woomy.be
+    header "Strict-Transport-Security" "max-age=15552000; includeSubDomains"
+    reverse_proxy localhost:3004
+}

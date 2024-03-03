@@ -40,6 +40,11 @@
           port: 6901
           password: "{{ joplin_postgres_pw }}"
           username: joplin
+        - name: nextcloud
+          hostname: 127.0.0.1
+          port: 6902
+          password: "{{ nextcloud_postgres_pw }}"
+          username: nextcloud
 
 - name: Start borgmatic.timer
   ansible.builtin.systemd:

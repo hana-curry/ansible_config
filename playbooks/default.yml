@@ -20,6 +20,10 @@
     joplin_proto: http
     joplin_mailer_noreply: "joplin@woomy.be"
 
+    # NextCloud
+    nextcloud_trusted_domains: nextcloud.woomy.be
+    nextcloud_mail_from: nextcloud
+
     # Vaultwarden
     vaultwarden_proto: http
     vaultwarden_domain: bitwarden.woomy.be
@@ -40,4 +44,5 @@
     - vaultwarden
     - joplin
     - static
+    - nextcloud
     - borg
