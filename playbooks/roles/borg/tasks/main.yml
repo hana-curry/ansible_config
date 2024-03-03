@@ -34,6 +34,11 @@
           port: 6900
           password: "{{ gitea_postgres_pw }}"
           username: gitea
+        - name: joplin
+          hostname: 127.0.0.1
+          port: 6901
+          password: "{{ joplin_postgres_pw }}"
+          username: joplin
 
 - name: Start borgmatic.timer
   ansible.builtin.systemd:

@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
     ansible.extra_vars = "secrets.yml.enc"
   end
   config.vm.provider "libvirt" do |v|
-    v.memory = 2048
+    v.memory = 8192
     v.cpus = 4
   end
   config.ssh.insert_key = true

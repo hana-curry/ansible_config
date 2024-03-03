@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  app:
+    image: joplin/server:2.14.2-beta
+    env_file: .env
+    restart: always
+    networks:
+      - joplin
+    ports:
+      - 127.0.0.1:3003:3003
+    depends_on:
+      - db
+  db:
+    image: postgres:16.2-alpine
+    env_file: .env
+    restart: always
+    volumes:
+      - joplin-postgres:/var/lib/postgresql/data
+    networks:
+      - joplin
+    ports:
+      - 127.0.0.1:6901:5432
+
+volumes:
+  joplin-postgres:
+    driver: local
+
+networks:
+  joplin:
+    external: false

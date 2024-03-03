@@ -15,6 +15,11 @@
     gitea_proto: http
     gitea_mailer_from_email: "gitea@woomy.be"
 
+    # Joplin
+    joplin_domain: joplin.woomy.be
+    joplin_proto: http
+    joplin_mailer_noreply: "joplin@woomy.be"
+
     # Vaultwarden
     vaultwarden_proto: http
     vaultwarden_domain: bitwarden.woomy.be
@@ -33,4 +38,5 @@
     - forgejo
     - freshrss
     - vaultwarden
+    - joplin
     - borg

@@ -1,0 +1,5 @@
+#www.joplin.woomy.be joplin.woomy.be {
+:80 {
+    import log joplin.woomy.be
+    reverse_proxy localhost:3003
+}
