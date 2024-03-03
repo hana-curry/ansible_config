@@ -1,0 +1,13 @@
+services:
+  web:
+    image: vaultwarden/server:1.30.5-alpine
+    env_file: .env
+    ports:
+      - "127.0.0.1:3002:80"
+    restart: always
+    volumes:
+      - vaultwarden-data:/data
+
+volumes:
+  vaultwarden-data:
+    driver: local
