@@ -1,0 +1,64 @@
+---
+- name: Install git
+  ansible.builtin.dnf:
+    name: "git"
+    state: latest
+
+- name: Set static dir path
+  ansible.builtin.set_fact:
+    static_path: "/var/www"
+
+- name: Setup dir for static pages
+  ansible.builtin.file:
+    state: directory
+    path: "{{ static_path }}"
+    mode: "0775"
+    owner: "{{ system_user }}"
+    group: "{{ system_user }}"
+
+- name: Clone custom_pages
+  become: true
+  become_user: "{{ system_user }}"
+  ansible.builtin.git:
+    repo: https://github.com/Woomymy/custom_pages
+    dest: "{{ static_path }}/custom_pages"
+
+- name: Clone woomy.be
+  become: true
+  become_user: "{{ system_user }}"
+  ansible.builtin.git:
+    repo: https://github.com/Woomymy/woomy.be
+    dest: "{{ static_path }}/woomy.be"
+
+- name: Create well-known dirs
+  become: true
+  become_user: "{{ system_user }}"
+  ansible.builtin.file:
+    state: directory
+    path: "{{ static_path }}/well-known/openpgpkey/hu/"
+    mode: "0755"
+    recurse: true
+
+- name: Create openpgp policy file
+  become: true
+  become_user: "{{ system_user }}"
+  ansible.builtin.file:
+    state: touch
+    path: "{{ static_path }}/well-known/openpgpkey/policy"
+    mode: "0755"
+
+- name: Copy openpgp file
+  become: true
+  become_user: "{{ system_user }}"
+  ansible.builtin.copy:
+    src: 'mscrnig88g4mzagk5ytb4ioz7yg51f67'
+    dest: "{{ static_path }}/well-known/openpgpkey/hu/mscrnig88g4mzagk5ytb4ioz7yg51f67"
+    mode: "0755"
+
+- name: Install static caddy config
+  ansible.builtin.template:
+    src: 'woomy.be.Caddyfile.j2'
+    dest: "/etc/caddy/sites/woomy.be.Caddyfile"
+    mode: "0755"
+  notify:
+    - Restart caddy.service

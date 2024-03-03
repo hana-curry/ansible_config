@@ -1,0 +1,13 @@
+www.woomy.be woomy.be {
+    import log woomy.be
+    import custom_errors
+    handle {
+        root * {{ static_path }}/woomy.be
+        file_server
+    }
+    handle_path /.well-known/* {
+        root * {{ static_path }}/well-known
+        header "Access-Control-Allow-Origin" "*"
+        file_server
+    }
+}
