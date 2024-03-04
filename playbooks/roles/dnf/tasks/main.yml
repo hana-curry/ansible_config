@@ -1,10 +1,29 @@
 ---
+- name: Enable dnf fastestmirror
+  community.general.ini_file:
+    path: /etc/dnf/dnf.conf
+    section: main
+    option: fastestmirror
+    value: true
+    mode: 644
+
+- name: Update dependencies
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+# `setfacl` is needed by Ansible
+- name: Install ACL
+  ansible.builtin.dnf:
+    name: "acl"
+    state: latest
+
 - name: Install dnf-automatic
   ansible.builtin.dnf:
     name: dnf-automatic
     state: latest
 
-- name: Enable updates application
+- name: Enable automatic updates application
   community.general.ini_file:
     path: /etc/dnf/automatic.conf
     section: commands

@@ -30,12 +30,11 @@
     vaultwarden_smtp_from: "vaultwarden@woomy.be"
   roles:
     - timezone
-    - pm
+    - dnf
     - users
     - firewall
     - fail2ban
     - sshd_config
-    - dnf_automatic
     - caddy
     - docker
     - forgejo
