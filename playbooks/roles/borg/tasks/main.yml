@@ -50,6 +50,11 @@
           port: 6903
           password: "{{ fiibot_id_postgres_pw }}"
           username: fiibot-id
+        - name: fiibot-interservers
+          hostname: 127.0.0.1
+          port: 6904
+          password: "{{ fiibot_interservers_postgres_pw }}"
+          username: fiibot-interservers
 
 - name: Start borgmatic.timer
   ansible.builtin.systemd:
