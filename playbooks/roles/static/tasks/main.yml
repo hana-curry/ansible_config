@@ -72,4 +72,6 @@
     - Restart caddy.service
 
 - name: Fix SELinux context
-  ansible.builtin.command: restorecon -R /var/www
+  ansible.builtin.command: restorecon -ivR /var/www
+  register: restorecon_result
+  changed_when: restorecon_result.stdout != ""
