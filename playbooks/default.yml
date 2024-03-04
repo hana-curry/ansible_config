@@ -43,9 +43,9 @@
     - joplin
     - static
     - nextcloud
-    - fiibot-id
-    - fiibot-interservers
-    - fiibot-logger
-    - fiibot-moderation
-    - fiibot-tm
+    - fiibot_id
+    - fiibot_interservers
+    - fiibot_logger
+    - fiibot_moderation
+    - fiibot_tm
     - borg
