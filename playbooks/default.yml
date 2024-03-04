@@ -37,6 +37,7 @@
     - timezone
     - dnf
     - users
+    - journal
     - firewall
     - fail2ban
     - sshd_config

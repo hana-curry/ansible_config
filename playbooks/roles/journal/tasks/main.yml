@@ -1,0 +1,14 @@
+---
+- name: Create journald configuration directory
+  ansible.builtin.file:
+    path: "/etc/systemd/journald.conf.d"
+    state: "directory"
+    mode: "0750"
+
+- name: Copy custom journald configuration
+  ansible.builtin.copy:
+    src: "limits.conf"
+    dest: "/etc/systemd/journald.conf.d/limits.conf"
+    mode: "0640"
+  notify:
+    - Restart systemd-journald.service
