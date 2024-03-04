@@ -11,36 +11,6 @@
     state: directory
     mode: "0755"
 
-- name: Check if docker-compose.yml already exists and get its checksum
-  ansible.builtin.stat:
-    path: "{{ forgejo_dir }}/docker-compose.yml"
-  register: docker_compose_yml
-
-- name: Create a temporary file for comparing our yml
-  ansible.builtin.tempfile:
-    state: file
-  register: temp_yml
-
-- name: Copy our yml to temp file
-  ansible.builtin.copy:
-    src: 'docker-compose.yml'
-    dest: "{{ temp_yml.path }}"
-    mode: "0755"
-  register: new_yml
-
-# We must stop forgejo before modifying the docker-compose.yml file
-- name: Ensure forgejo is stopped
-  become: true
-  become_user: "{{ docker_user }}"
-  environment:
-    XDG_RUNTIME_DIR: /run/user/{{ docker_user_info.uid }}
-    PATH: "{{ docker_user_info.home }}/bin:{{ ansible_env.PATH }}"
-    DOCKER_HOST: "unix:///run/user/{{ docker_user_info.uid }}/docker.sock"
-  community.docker.docker_compose_v2:
-    project_src: "{{ forgejo_dir }}"
-    state: absent
-  when: docker_compose_yml.stat.exists and (docker_compose_yml.stat.checksum != new_yml.checksum)
-
 - name: Copy docker-compose.yml
   become: true
   become_user: "{{ docker_user }}"
@@ -91,4 +61,4 @@
   community.docker.docker_compose_v2:
     project_src: "{{ forgejo_dir }}"
     state: present
-  when: not docker_compose_yml.stat.exists or (docker_compose_yml.stat.checksum != new_yml.checksum)
+    remove_orphans: true
