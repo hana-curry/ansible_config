@@ -1,5 +1,5 @@
 ---
-- name: Create the "sudo" group
+- name: Create the sudo group
   ansible.builtin.group:
     name: sudo
 

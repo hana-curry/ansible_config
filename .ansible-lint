@@ -1,5 +1,6 @@
+---
 profile: production
 skip_list:
-  - "package-latest"
-  - "latest[git]"
-  - "var-naming[no-role-prefix]"
+  - package-latest
+  - latest[git]
+  - var-naming[no-role-prefix]

@@ -1,12 +1,12 @@
 ---
 - name: Install git
   ansible.builtin.dnf:
-    name: "git"
+    name: git
     state: latest
 
 - name: Set static dir path
   ansible.builtin.set_fact:
-    static_path: "/var/www"
+    static_path: /var/www
 
 - name: Setup dir for static pages
   ansible.builtin.file:
@@ -23,7 +23,7 @@
     repo: https://github.com/Woomymy/custom_pages
     dest: "{{ static_path }}/custom_pages"
 
-- name: "Clone {{ domain }}"
+- name: Clone {{ domain }}
   become: true
   become_user: "{{ system_user }}"
   ansible.builtin.git:
@@ -43,7 +43,7 @@
   become: true
   become_user: "{{ system_user }}"
   ansible.builtin.copy:
-    content: ''
+    content: ""
     dest: "{{ static_path }}/well-known/openpgpkey/policy"
     mode: "0755"
 
@@ -51,7 +51,7 @@
   become: true
   become_user: "{{ system_user }}"
   ansible.builtin.copy:
-    src: 'mscrnig88g4mzagk5ytb4ioz7yg51f67'
+    src: mscrnig88g4mzagk5ytb4ioz7yg51f67
     dest: "{{ static_path }}/well-known/openpgpkey/hu/mscrnig88g4mzagk5ytb4ioz7yg51f67"
     mode: "0755"
 
@@ -65,8 +65,8 @@
 
 - name: Install static caddy config
   ansible.builtin.template:
-    src: 'static.caddyfile.j2'
-    dest: "/etc/caddy/sites/static.caddyfile"
+    src: static.caddyfile.j2
+    dest: /etc/caddy/sites/static.caddyfile
     mode: "0755"
   notify:
     - Restart caddy.service

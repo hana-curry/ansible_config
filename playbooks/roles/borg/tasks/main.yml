@@ -2,12 +2,12 @@
 # PostgreSQL is needed by borg for running pg_dump
 - name: Install PostgreSQL
   ansible.builtin.dnf:
-    name: "postgresql16"
+    name: postgresql16
     state: latest
 
 - name: Install cronie
   ansible.builtin.dnf:
-    name: "cronie"
+    name: cronie
     state: latest
 
 - name: Setup borg backup
@@ -22,7 +22,7 @@
       - /var/www/files
     # We backup postgres databases using hooks
     borg_exclude_patterns:
-      - 'sh:{{ docker_user_info.home }}/.local/share/docker/volumes/*-postgres*'
+      - sh:{{ docker_user_info.home }}/.local/share/docker/volumes/*-postgres*
     borgmatic_hooks:
       before_backup:
         - echo "`date` - Starting backup."
@@ -68,16 +68,16 @@
 
 - name: Start borgmatic.timer
   ansible.builtin.systemd:
-    name: "borgmatic.timer"
+    name: borgmatic.timer
     state: started
 
 - name: Enable borgmatic.timer
   ansible.builtin.systemd:
-    name: "borgmatic.timer"
+    name: borgmatic.timer
     enabled: true
 
 - name: Copy host key to known_hosts
   ansible.builtin.copy:
     content: "{{ borg_host_key }}"
-    dest: '/root/.ssh/known_hosts'
+    dest: /root/.ssh/known_hosts
     mode: "0600"

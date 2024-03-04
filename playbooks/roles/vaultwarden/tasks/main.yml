@@ -15,7 +15,7 @@
   become: true
   become_user: "{{ docker_user }}"
   ansible.builtin.copy:
-    src: "docker-compose.yml"
+    src: docker-compose.yml
     dest: "{{ vaultwarden_dir }}/docker-compose.yml"
     mode: "0755"
 
@@ -23,14 +23,14 @@
   become: true
   become_user: "{{ docker_user }}"
   ansible.builtin.template:
-    src: "env.j2"
+    src: env.j2
     dest: "{{ vaultwarden_dir }}/.env"
     mode: "0755"
 
 - name: Copy caddy site configuration
   ansible.builtin.template:
-    src: "bitwarden.caddyfile"
-    dest: "/etc/caddy/sites/bitwarden.caddyfile"
+    src: bitwarden.caddyfile
+    dest: /etc/caddy/sites/bitwarden.caddyfile
     mode: "0755"
   notify:
     - Restart caddy.service
@@ -41,7 +41,7 @@
   environment:
     XDG_RUNTIME_DIR: /run/user/{{ docker_user_info.uid }}
     PATH: "{{ docker_user_info.home }}/bin:{{ ansible_env.PATH }}"
-    DOCKER_HOST: "unix:///run/user/{{ docker_user_info.uid }}/docker.sock"
+    DOCKER_HOST: unix:///run/user/{{ docker_user_info.uid }}/docker.sock
   community.docker.docker_compose_v2:
     project_src: "{{ vaultwarden_dir }}"
     state: present

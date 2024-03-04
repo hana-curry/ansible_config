@@ -1,3 +1,4 @@
+---
 services:
   bot:
     image: ghcr.io/woomymy/thread-limit-bot:1.2.2

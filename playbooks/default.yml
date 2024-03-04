@@ -11,28 +11,28 @@
     services_dirname: services
 
     # Forgejo
-    gitea_app_name: "Woomy's git"
+    gitea_app_name: Woomy's git
     gitea_proto: https
-    gitea_domain: "git.{{ domain }}"
-    gitea_mailer_from_email: "git@{{ domain }}"
+    gitea_domain: git.{{ domain }}
+    gitea_mailer_from_email: git@{{ domain }}
 
     # FreshRSS
-    rss_domain: "rss.{{ domain }}"
+    rss_domain: rss.{{ domain }}
 
     # Joplin
     joplin_proto: https
-    joplin_domain: "joplin.{{ domain }}"
-    joplin_mailer_noreply: "joplin@{{ domain }}"
+    joplin_domain: joplin.{{ domain }}
+    joplin_mailer_noreply: joplin@{{ domain }}
 
     # NextCloud
-    nextcloud_domain: "nextcloud.{{ domain }}"
-    nextcloud_trusted_domains: "www.{{ nextcloud_domain }} {{ nextcloud_domain }}"
+    nextcloud_domain: nextcloud.{{ domain }}
+    nextcloud_trusted_domains: www.{{ nextcloud_domain }} {{ nextcloud_domain }}
     nextcloud_mail_from: nextcloud
 
     # Vaultwarden
     vaultwarden_proto: https
-    vaultwarden_domain: "bitwarden.{{ domain }}"
-    vaultwarden_smtp_from: "vaultwarden@{{ domain }}"
+    vaultwarden_domain: bitwarden.{{ domain }}
+    vaultwarden_smtp_from: vaultwarden@{{ domain }}
   roles:
     - timezone
     - dnf

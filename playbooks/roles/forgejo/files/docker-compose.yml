@@ -10,8 +10,8 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "127.0.0.1:3000:3000"
-      - "22:2222"
+      - 127.0.0.1:3000:3000
+      - 22:2222
     networks:
       - forgejo
     depends_on:
@@ -26,7 +26,7 @@ services:
     volumes:
       - forgejo-postgres:/var/lib/postgresql/data
     ports:
-      - "127.0.0.1:6900:5432"
+      - 127.0.0.1:6900:5432
 
 volumes:
   forgejo-data:

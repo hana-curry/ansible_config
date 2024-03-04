@@ -1,7 +1,7 @@
 ---
 - name: Install fuse-overlayfs
   ansible.builtin.dnf:
-    name: "fuse-overlayfs"
+    name: fuse-overlayfs
     state: latest
 
 - name: Include the konstruktoid.docker_rootless role (configure docker)
