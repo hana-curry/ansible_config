@@ -1,0 +1,5 @@
+services:
+  bot:
+    image: ghcr.io/woomymy/thread-limit-bot:1.2.2
+    env_file: .env
+    restart: always

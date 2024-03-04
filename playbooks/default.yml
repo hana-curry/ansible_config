@@ -47,4 +47,5 @@
     - fiibot-interservers
     - fiibot-logger
     - fiibot-moderation
+    - fiibot-tm
     - borg
