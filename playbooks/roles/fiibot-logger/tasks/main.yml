@@ -1,0 +1,40 @@
+---
+- name: Set services home path
+  ansible.builtin.set_fact:
+    fiibot_logger_dir: "{{ services_homedir }}/fiibot_logger"
+
+- name: Create fiibot_logger docker-compose directory
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.file:
+    path: "{{ fiibot_logger_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Copy docker-compose.yml
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.copy:
+    src: "docker-compose.yml"
+    dest: "{{ fiibot_logger_dir }}/docker-compose.yml"
+    mode: "0755"
+
+- name: Copy env file
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.template:
+    src: "env.j2"
+    dest: "{{ fiibot_logger_dir }}/.env"
+    mode: "0755"
+
+- name: Start fiibot_logger
+  become: true
+  become_user: "{{ docker_user }}"
+  environment:
+    XDG_RUNTIME_DIR: /run/user/{{ docker_user_info.uid }}
+    PATH: "{{ docker_user_info.home }}/bin:{{ ansible_env.PATH }}"
+    DOCKER_HOST: "unix:///run/user/{{ docker_user_info.uid }}/docker.sock"
+  community.docker.docker_compose_v2:
+    project_src: "{{ fiibot_logger_dir }}"
+    state: present
+    remove_orphans: true

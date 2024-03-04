@@ -45,4 +45,5 @@
     - nextcloud
     - fiibot-id
     - fiibot-interservers
+    - fiibot-logger
     - borg
