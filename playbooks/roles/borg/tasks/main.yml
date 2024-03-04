@@ -45,6 +45,11 @@
           port: 6902
           password: "{{ nextcloud_postgres_pw }}"
           username: nextcloud
+        - name: fiibot-id
+          hostname: 127.0.0.1
+          port: 6903
+          password: "{{ fiibot_id_postgres_pw }}"
+          username: fiibot-id
 
 - name: Start borgmatic.timer
   ansible.builtin.systemd:
