@@ -76,14 +76,14 @@
 
 - name: Copy log helper
   ansible.builtin.copy:
-    src: log.Caddyfile
-    dest: /etc/caddy/helpers/log.Caddyfile
+    src: log.caddyfile
+    dest: /etc/caddy/helpers/log.caddyfile
     mode: "0755"
 
 - name: Copy errors helper
   ansible.builtin.copy:
-    src: errors.Caddyfile
-    dest: /etc/caddy/helpers/errors.Caddyfile
+    src: errors.caddyfile
+    dest: /etc/caddy/helpers/errors.caddyfile
     mode: "0755"
 
 - name: Create caddy log directory

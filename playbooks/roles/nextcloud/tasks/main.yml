@@ -28,9 +28,9 @@
     mode: "0755"
 
 - name: Copy caddy site configuration
-  ansible.builtin.copy:
-    src: "nextcloud.woomy.be.Caddyfile"
-    dest: "/etc/caddy/sites/nextcloud.woomy.be.Caddyfile"
+  ansible.builtin.template:
+    src: "nextcloud.caddyfile"
+    dest: "/etc/caddy/sites/nextcloud.caddyfile"
     mode: "0755"
   notify:
     - Restart caddy.service

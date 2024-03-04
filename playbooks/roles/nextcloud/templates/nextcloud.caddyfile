@@ -1,4 +1,4 @@
-nextcloud.woomy.be www.nextcloud.woomy.be {
+{{ nextcloud_trusted_domains }} {
     import log
     header "Strict-Transport-Security" "max-age=15552000; includeSubDomains"
     reverse_proxy localhost:3004

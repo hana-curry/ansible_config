@@ -1,4 +1,0 @@
-gitea.woomy.be www.gitea.woomy.be git.woomy.be www.git.woomy.be {
-    import log
-    reverse_proxy localhost:3000
-}

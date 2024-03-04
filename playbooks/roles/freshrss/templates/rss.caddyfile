@@ -1,4 +1,4 @@
-rss.woomy.be www.rss.woomy.be {
+{{ rss_domain }} www.{{ rss_domain }} {
     import log
     reverse_proxy localhost:3001
 }

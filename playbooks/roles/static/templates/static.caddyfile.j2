@@ -1,8 +1,8 @@
-www.woomy.be woomy.be {
-    import log woomy.be
+www.{{ domain }} {{ domain }} {
+    import log
     import custom_errors
     handle {
-        root * {{ static_path }}/woomy.be
+        root * {{ static_path }}/{{ domain }}
         file_server
     }
     handle_path /.well-known/* {
@@ -12,8 +12,8 @@ www.woomy.be woomy.be {
     }
 }
 
-files.woomy.be www.files.woomy.be {
-    import log files.woomy.be
+files.{{ domain }} www.files.{{ domain }} {
+    import log
     import custom_errors
     handle {
         root * {{ static_path }}/files

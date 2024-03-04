@@ -4,6 +4,7 @@
   become: true
   vars:
     # System
+    domain: woomy.be
     system_user: woomy
     docker_user: docker
     sshd_port: 22
@@ -11,23 +12,27 @@
 
     # Forgejo
     gitea_app_name: "Woomy's git"
-    gitea_domain: git.woomy.be
-    gitea_proto: http
-    gitea_mailer_from_email: "gitea@woomy.be"
+    gitea_proto: https
+    gitea_domain: "git.{{ domain }}"
+    gitea_mailer_from_email: "git@{{ domain }}"
+
+    # FreshRSS
+    rss_domain: "rss.{{ domain }}"
 
     # Joplin
-    joplin_domain: joplin.woomy.be
-    joplin_proto: http
-    joplin_mailer_noreply: "joplin@woomy.be"
+    joplin_proto: https
+    joplin_domain: "joplin.{{ domain }}"
+    joplin_mailer_noreply: "joplin@{{ domain }}"
 
     # NextCloud
-    nextcloud_trusted_domains: nextcloud.woomy.be
+    nextcloud_domain: "nextcloud.{{ domain }}"
+    nextcloud_trusted_domains: "www.{{ nextcloud_domain }} {{ nextcloud_domain }}"
     nextcloud_mail_from: nextcloud
 
     # Vaultwarden
-    vaultwarden_proto: http
-    vaultwarden_domain: bitwarden.woomy.be
-    vaultwarden_smtp_from: "vaultwarden@woomy.be"
+    vaultwarden_proto: https
+    vaultwarden_domain: "bitwarden.{{ domain }}"
+    vaultwarden_smtp_from: "vaultwarden@{{ domain }}"
   roles:
     - timezone
     - dnf

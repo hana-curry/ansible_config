@@ -1,0 +1,4 @@
+{{ vaultwarden_domain }} www.{{ vaultwarden_domain }} {
+    import log
+    reverse_proxy localhost:3002
+}

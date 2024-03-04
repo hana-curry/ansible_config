@@ -23,12 +23,12 @@
     repo: https://github.com/Woomymy/custom_pages
     dest: "{{ static_path }}/custom_pages"
 
-- name: Clone woomy.be
+- name: "Clone {{ domain }}"
   become: true
   become_user: "{{ system_user }}"
   ansible.builtin.git:
-    repo: https://github.com/Woomymy/woomy.be
-    dest: "{{ static_path }}/woomy.be"
+    repo: https://github.com/Woomymy/{{ domain }}
+    dest: "{{ static_path }}/{{ domain }}"
 
 - name: Create well-known dirs
   become: true
@@ -65,8 +65,8 @@
 
 - name: Install static caddy config
   ansible.builtin.template:
-    src: 'woomy.be.Caddyfile.j2'
-    dest: "/etc/caddy/sites/woomy.be.Caddyfile"
+    src: 'static.caddyfile.j2'
+    dest: "/etc/caddy/sites/static.caddyfile"
     mode: "0755"
   notify:
     - Restart caddy.service

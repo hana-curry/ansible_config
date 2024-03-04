@@ -1,4 +1,4 @@
-www.joplin.woomy.be joplin.woomy.be {
+www.{{ joplin_domain }} {{ joplin_domain }} {
     import log
     reverse_proxy localhost:3003
 }

@@ -28,9 +28,9 @@
     mode: "0755"
 
 - name: Copy caddy site configuration
-  ansible.builtin.copy:
-    src: "bitwarden.woomy.be.Caddyfile"
-    dest: "/etc/caddy/sites/bitwarden.woomy.be.Caddyfile"
+  ansible.builtin.template:
+    src: "bitwarden.caddyfile"
+    dest: "/etc/caddy/sites/bitwarden.caddyfile"
     mode: "0755"
   notify:
     - Restart caddy.service

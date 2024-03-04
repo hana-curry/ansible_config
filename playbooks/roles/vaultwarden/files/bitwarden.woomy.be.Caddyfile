@@ -1,4 +1,0 @@
-bitwarden.woomy.be www.bitwarden.woomy.be {
-    import log
-    reverse_proxy localhost:3002
-}
