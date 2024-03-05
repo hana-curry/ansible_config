@@ -15,6 +15,7 @@
     gitea_proto: https
     gitea_domain: git.{{ domain }}
     gitea_mailer_from_email: git@{{ domain }}
+    gitea_register_email_confirm: true
 
     # FreshRSS
     rss_domain: rss.{{ domain }}
