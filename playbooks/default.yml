@@ -7,7 +7,6 @@
     domain: woomy.be
     system_user: woomy
     docker_user: docker
-    sshd_port: 22
     services_dirname: services
 
     # Forgejo
