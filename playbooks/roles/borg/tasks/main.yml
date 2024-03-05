@@ -15,8 +15,8 @@
     name: borgbase.ansible_role_borgbackup
   vars:
     borgmatic_timer: systemd
-    borgmatic_timer_hour: 17
-    borgmatic_timer_minute: 30
+    borgmatic_timer_hour: 03
+    borgmatic_timer_minute: 05
     borg_source_directories:
       - "{{ docker_user_info.home }}/.local/share/docker/volumes/"
       - /var/www/files
@@ -28,7 +28,7 @@
         - echo "`date` - Starting backup."
       after_everything:
         - echo "`date` - Finished backup."
-      #  - "ssh -p {{ borg_port }} {{ borg_user }}@{{ borg_host }} 'sudo poweroff'"
+        - "ssh -p {{ borg_ssh_port }} {{ borg_ssh_user }}@{{ borg_ssh_host }} 'sudo poweroff'"
       postgresql_databases:
         - name: gitea
           hostname: 127.0.0.1
