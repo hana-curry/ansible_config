@@ -35,6 +35,7 @@
     vaultwarden_smtp_from: vaultwarden@{{ domain }}
   roles:
     - timezone
+    - hostname
     - dnf
     - users
     - journal
