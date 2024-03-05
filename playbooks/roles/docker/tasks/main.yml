@@ -25,3 +25,20 @@
     path: "{{ services_homedir }}"
     state: directory
     mode: "0700"
+
+- name: Add DOCKER_HOST to .profile
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.copy:
+    dest: "{{ docker_user_info.home }}/.profile"
+    mode: "0755"
+    content: |
+      export DOCKER_HOST=unix:///run/user/{{ docker_user_info.uid }}/docker.sock
+
+- name: Source .profile from bashrc
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.lineinfile:
+    path: "{{ docker_user_info.home }}/.bashrc"
+    line: source ~/.profile
+    create: yes
