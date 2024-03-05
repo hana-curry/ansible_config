@@ -1,5 +1,7 @@
 {{ nextcloud_trusted_domains }} {
     import log
-    header "Strict-Transport-Security" "max-age=15552000; includeSubDomains"
+    redir /.well-known/carddav /remote.php/dav 301
+    redir /.well-known/caldav /remote.php/dav 301
+    header "Strict-Transport-Security" "max-age=31536000;"
     reverse_proxy localhost:3004
 }
