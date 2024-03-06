@@ -13,14 +13,11 @@
     state: latest
 
 # `setfacl` is needed by Ansible
-- name: Install ACL
+- name: Install ACL and dnf-automatic
   ansible.builtin.dnf:
-    name: acl
-    state: latest
-
-- name: Install dnf-automatic
-  ansible.builtin.dnf:
-    name: dnf-automatic
+    name:
+      - acl
+      - dnf-automatic
     state: latest
 
 - name: Enable automatic updates application

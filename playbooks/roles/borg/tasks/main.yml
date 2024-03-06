@@ -1,13 +1,10 @@
 ---
 # PostgreSQL is needed by borg for running pg_dump
-- name: Install PostgreSQL
+- name: Install PostgreSQL, cronie
   ansible.builtin.dnf:
-    name: postgresql16
-    state: latest
-
-- name: Install cronie
-  ansible.builtin.dnf:
-    name: cronie
+    name:
+      - postgresql16
+      - cronie
     state: latest
 
 - name: Setup borg backup
