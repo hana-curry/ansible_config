@@ -14,15 +14,11 @@
     name: caddy
     state: latest
 
-- name: Enable caddy.service
-  ansible.builtin.systemd:
-    name: caddy.service
-    enabled: true
-
-- name: Start caddy.service
+- name: Enable and start caddy.service
   ansible.builtin.systemd:
     name: caddy.service
     state: started
+    enabled: true
 
 - name: Allow HTTP traffic in firewalld
   ansible.posix.firewalld:

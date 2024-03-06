@@ -63,14 +63,10 @@
           password: "{{ fiibot_moderation_postgres_pw }}"
           username: fiibot-moderation
 
-- name: Start borgmatic.timer
+- name: Start and enable borgmatic.timer
   ansible.builtin.systemd:
     name: borgmatic.timer
     state: started
-
-- name: Enable borgmatic.timer
-  ansible.builtin.systemd:
-    name: borgmatic.timer
     enabled: true
 
 - name: Copy host key to known_hosts

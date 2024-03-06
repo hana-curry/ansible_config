@@ -3,6 +3,9 @@
   ansible.builtin.dnf:
     name: fail2ban
     state: latest
-  notify:
-    - Enable fail2ban.service
-    - Start fail2ban.service
+
+- name: Enable and start fail2ban.service
+  ansible.builtin.systemd:
+    name: fail2ban.service
+    state: started
+    enabled: true

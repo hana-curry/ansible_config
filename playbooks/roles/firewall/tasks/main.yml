@@ -3,6 +3,9 @@
   ansible.builtin.dnf:
     name: firewalld
     state: latest
-  notify:
-    - Enable firewalld.service
-    - Start firewalld.service
+
+- name: Enable and start firewalld.service
+  ansible.builtin.systemd:
+    name: firewalld.service
+    state: started
+    enabled: true
