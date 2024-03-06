@@ -25,7 +25,7 @@
         - echo "`date` - Starting backup."
       after_everything:
         - echo "`date` - Finished backup."
-        - "ssh -p {{ borg_ssh_port }} {{ borg_ssh_user }}@{{ borg_ssh_host }} 'sudo poweroff'"
+        - ssh -p {{ borg_ssh_port }} {{ borg_ssh_user }}@{{ borg_ssh_host }} 'sudo poweroff'
       postgresql_databases:
         - name: gitea
           hostname: 127.0.0.1
