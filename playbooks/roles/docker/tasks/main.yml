@@ -41,4 +41,5 @@
   ansible.builtin.lineinfile:
     path: "{{ docker_user_info.home }}/.bashrc"
     line: source ~/.profile
-    create: yes
+    create: true
+    mode: "0755"
