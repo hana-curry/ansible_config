@@ -1,7 +1,7 @@
 ---
 services:
   app:
-    image: codeberg.org/forgejo/forgejo:1.21.6-0-rootless
+    image: codeberg.org/forgejo/forgejo:1.21.7-0-rootless
     env_file: .env
     restart: always
     volumes:
