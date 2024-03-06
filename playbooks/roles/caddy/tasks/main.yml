@@ -20,21 +20,16 @@
     state: started
     enabled: true
 
-- name: Allow HTTP traffic in firewalld
+- name: Allow HTTP(s) traffic in firewalld
   ansible.posix.firewalld:
-    service: http
+    service: "{{ item }}"
     permanent: true
     state: enabled
   notify:
     - Reload firewalld.service
-
-- name: Allow HTTPS traffic in firewalld
-  ansible.posix.firewalld:
-    service: https
-    permanent: true
-    state: enabled
-  notify:
-    - Reload firewalld.service
+  with_items:
+    - http
+    - https
 
 - name: Copy caddy.conf jail
   ansible.builtin.copy:
@@ -52,17 +47,14 @@
   notify:
     - Reload fail2ban.service
 
-- name: Create caddy helpers dir
+- name: Create caddy directories
   ansible.builtin.file:
     state: directory
-    path: /etc/caddy/helpers
+    path: /etc/caddy/{{ item }}
     mode: "0755"
-
-- name: Create caddy sites dir
-  ansible.builtin.file:
-    state: directory
-    path: /etc/caddy/sites
-    mode: "0755"
+  with_items:
+    - helpers
+    - sites
 
 - name: Copy main Caddyfile
   ansible.builtin.copy:
@@ -70,17 +62,14 @@
     dest: /etc/caddy/Caddyfile
     mode: "0755"
 
-- name: Copy log helper
+- name: Copy caddy helpers
   ansible.builtin.copy:
-    src: log.caddyfile
-    dest: /etc/caddy/helpers/log.caddyfile
+    src: "{{ item }}.caddyfile"
+    dest: /etc/caddy/helpers/{{ item }}.caddyfile
     mode: "0755"
-
-- name: Copy errors helper
-  ansible.builtin.copy:
-    src: errors.caddyfile
-    dest: /etc/caddy/helpers/errors.caddyfile
-    mode: "0755"
+  with_items:
+    - log
+    - errors
 
 - name: Create caddy log directory
   ansible.builtin.file:

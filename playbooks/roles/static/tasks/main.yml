@@ -16,19 +16,15 @@
     owner: "{{ system_user }}"
     group: "{{ system_user }}"
 
-- name: Clone custom_pages
+- name: Clone pages
   become: true
   become_user: "{{ system_user }}"
   ansible.builtin.git:
-    repo: https://github.com/Woomymy/custom_pages
-    dest: "{{ static_path }}/custom_pages"
-
-- name: Clone {{ domain }}
-  become: true
-  become_user: "{{ system_user }}"
-  ansible.builtin.git:
-    repo: https://github.com/Woomymy/{{ domain }}
-    dest: "{{ static_path }}/{{ domain }}"
+    repo: https://github.com/Woomymy/{{ item }}
+    dest: "{{ static_path }}/{{ item }}"
+  with_items:
+    - "{{ domain }}"
+    - custom_pages
 
 - name: Create well-known dirs
   become: true
