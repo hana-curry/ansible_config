@@ -5,6 +5,6 @@
 inventories
 
 # Secrets yml
-secrets.yml.enc
+*.enc
 .vaultpw
 
