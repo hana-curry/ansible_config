@@ -1,24 +1,26 @@
 ---
 services:
   app:
-    image: nextcloud:28.0.3
+    image: nextcloud:28.0.3-fpm-alpine
     restart: always
     env_file: .env
-    networks:
-      - nextcloud
-    ports:
-      - 127.0.0.1:3004:80
     volumes:
       - nextcloud-data:/var/www/html
     depends_on:
       - db
       - redis
+  caddy:
+    image: caddy:2.7.6-alpine
+    restart: always
+    volumes:
+      - nextcloud-data:/var/www/html:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    ports:
+      - 3004:80
   db:
     image: postgres:16.2-alpine
     restart: always
     env_file: .env
-    networks:
-      - nextcloud
     ports:
       - 127.0.0.1:6902:5432
     volumes:
@@ -26,15 +28,9 @@ services:
   redis:
     image: redis:7.2.4-alpine
     restart: always
-    networks:
-      - nextcloud
 
 volumes:
   nextcloud-data:
     driver: local
   nextcloud-postgres:
     driver: local
-
-networks:
-  nextcloud:
-    external: false

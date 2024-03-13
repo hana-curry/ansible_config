@@ -1,0 +1,49 @@
+# Adapted from https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/with-nginx-proxy/postgres/fpm/web/nginx.conf
+
+:80 {
+    root * /var/www/html
+    file_server
+
+    php_fastcgi app:9000
+
+    # Specific redirections
+    redir /.well-known/carddav /remote.php/dav 301
+    redir /.well-known/caldav /remote.php/dav 301
+    redir /.well-known/* /index.php{uri} 301
+
+    # Headers (from .htaccess)
+    header {
+        Referrer-Policy "no-referrer"
+        X-Content-Type-Options "nosniff"           
+        X-Frame-Options "SAMEORIGIN"        
+        X-Permitted-Cross-Domain-Policies "none"              
+        X-Robots-Tag "noindex, nofollow" 
+        X-XSS-Protection "1; mode=block"     
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+        # Remove X-Powered-By, which is an information leak
+        -X-Powered-By
+    }
+
+    # Not public files / dirs
+    @private {
+        # Directories
+        path /build/*
+        path /tests/*
+        path /config/*
+        path /lib/*
+        path /3rdparty/*
+        path /templates/*
+        path /data/*
+
+        path /autotest
+        path /occ
+        path /issue
+        path /indie
+        path /db_
+        path /console
+        path /.*
+    }
+    
+    respond @private 404
+}

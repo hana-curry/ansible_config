@@ -27,6 +27,14 @@
     dest: "{{ nextcloud_dir }}/.env"
     mode: "0755"
 
+- name: Copy fpm caddyfile
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.template:
+    src: docker.Caddyfile
+    dest: "{{ nextcloud_dir }}/Caddyfile"
+    mode: "0755"
+
 - name: Copy caddy site configuration
   ansible.builtin.template:
     src: nextcloud.caddyfile
