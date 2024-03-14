@@ -4,8 +4,6 @@ services:
     image: ghcr.io/federation-interservices-d-informatique/fiibot-logger:2.1.4
     env_file: .env
     restart: always
-    networks:
-      - fiibot-logger
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -16,8 +14,6 @@ services:
     image: postgres:16.2-alpine
     env_file: .env
     restart: always
-    networks:
-      - fiibot-logger
     ports:
       - 127.0.0.1:6905:5432
     volumes:
@@ -28,7 +24,3 @@ services:
 volumes:
   fiibot-logger-postgres:
     driver: local
-
-networks:
-  fiibot-logger:
-    external: false
