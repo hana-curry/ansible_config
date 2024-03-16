@@ -30,6 +30,7 @@
   with_items:
     - http
     - https
+    - http3
 
 - name: Copy caddy.conf jail
   ansible.builtin.copy:
