@@ -48,29 +48,17 @@
   notify:
     - Reload fail2ban.service
 
-- name: Create caddy directories
+- name: Create caddy sites directory
   ansible.builtin.file:
     state: directory
-    path: /etc/caddy/{{ item }}
+    path: /etc/caddy/sites
     mode: "0755"
-  with_items:
-    - helpers
-    - sites
 
 - name: Copy main Caddyfile
   ansible.builtin.copy:
     src: Caddyfile
     dest: /etc/caddy/Caddyfile
     mode: "0755"
-
-- name: Copy caddy helpers
-  ansible.builtin.copy:
-    src: "{{ item }}.caddyfile"
-    dest: /etc/caddy/helpers/{{ item }}.caddyfile
-    mode: "0755"
-  with_items:
-    - log
-    - errors
 
 - name: Create caddy log directory
   ansible.builtin.file:

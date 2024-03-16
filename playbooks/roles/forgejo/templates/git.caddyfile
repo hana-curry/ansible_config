@@ -1,4 +1,4 @@
 gitea.{{ domain }} www.gitea.{{ domain }} {{ gitea_domain }} www.{{ gitea_domain }} {
-    import log
+    import common
     reverse_proxy localhost:3000
 }

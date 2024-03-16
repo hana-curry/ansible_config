@@ -1,6 +1,5 @@
 www.{{ domain }} {{ domain }} {
-    import log
-    import custom_errors
+    import common
     handle {
         root * {{ static_path }}/{{ domain }}
         file_server
@@ -13,8 +12,7 @@ www.{{ domain }} {{ domain }} {
 }
 
 files.{{ domain }} www.files.{{ domain }} {
-    import log
-    import custom_errors
+    import common
     handle {
         root * {{ static_path }}/files
         file_server browse

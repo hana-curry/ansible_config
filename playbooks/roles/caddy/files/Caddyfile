@@ -1,4 +1,43 @@
 # Caddy Webserver config file
 
-import helpers/*
+(common) {
+    encode zstd gzip
+    header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    log {
+        level error
+        output stdout
+    }
+
+    handle_errors {
+        root * /var/www/custom_pages/errors
+        file_server
+        templates
+        rewrite * /error.html
+    }
+
+    # Cache control for static files
+    @static {
+        path *.js
+        path *.mjs
+        path *.css
+        path *.svg
+        path *.gif
+        path *.png
+        path *.jpg
+        path *.ico
+        path *.wasm
+        path *.tflite
+        path *.map
+        path *.ogg
+        path *.flac
+        path *.ttf
+        path *.woff2
+    }
+
+    header @static {
+        Cache-Control "public, max-age=15778463"
+    }
+}
+
 import sites/*

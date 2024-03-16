@@ -1,6 +1,0 @@
-(log) {
-    log {
-        level error
-        output stdout
-    }
-}
