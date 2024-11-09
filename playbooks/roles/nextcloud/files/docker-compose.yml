@@ -1,7 +1,7 @@
 ---
 services:
   app:
-    image: nextcloud:29.0.0-fpm-alpine
+    image: nextcloud:30.0.2-fpm-alpine
     restart: always
     env_file: .env
     volumes:
