@@ -7,7 +7,7 @@
   ansible.builtin.user:
     name: "{{ system_user }}"
     shell: /bin/bash
-    groups: sudo, systemd-journal
+    groups: sudo, systemd-journal, wheel
     append: true
   register: system_user_info
 
