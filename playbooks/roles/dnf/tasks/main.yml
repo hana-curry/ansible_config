@@ -2,7 +2,7 @@
 - name: Install python-libdnf5
   ansible.builtin.command: dnf install python-libdnf5 -y
   register: libpython_result
-  changed_when: '"is already installed" not in libpython_result.stderr'
+  changed_when: "'is already installed' not in libpython_result.stderr"
 
 - name: Enable dnf fastestmirror
   community.general.ini_file:
