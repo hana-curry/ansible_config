@@ -43,6 +43,22 @@
   notify:
     - Restart caddy.service
 
+- name: Install nextcloud cron service
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.template:
+    src: nextcloud-cron.service
+    dest: "{{ docker_user_info.home }}/.config/systemd/user/nextcloud-cron.service"
+    mode: "0600"
+
+- name: Install nextcloud cron timer
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.template:
+    src: nextcloud-cron.timer
+    dest: "{{ docker_user_info.home }}/.config/systemd/user/nextcloud-cron.timer"
+    mode: "0600"
+
 - name: Start nextcloud
   become: true
   become_user: "{{ docker_user }}"
@@ -54,3 +70,13 @@
     project_src: "{{ nextcloud_dir }}"
     state: present
     remove_orphans: true
+
+- name: Enable and start nextcloud cron timer
+  become: true
+  become_user: "{{ docker_user }}"
+  ansible.builtin.systemd:
+    name: nextcloud-cron.timer
+    enabled: true
+    state: started
+    scope: user
+    daemon_reload: true
