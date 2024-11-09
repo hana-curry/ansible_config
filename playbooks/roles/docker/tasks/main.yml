@@ -24,7 +24,7 @@
     state: directory
     mode: "0700"
 
-- name: Add DOCKER_HOST to .profile
+- name: Add DOCKER_HOST and XDG_RUNTIME_DIR to .profile
   become: true
   become_user: "{{ docker_user }}"
   ansible.builtin.copy:
@@ -32,6 +32,7 @@
     mode: "0755"
     content: |
       export DOCKER_HOST=unix:///run/user/{{ docker_user_info.uid }}/docker.sock
+      export XDG_RUNTIME_DIR=/run/user/{{ docker_user_info.uid }}
 
 - name: Source .profile from bashrc
   become: true
