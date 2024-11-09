@@ -1,4 +1,6 @@
 www.{{ joplin_domain }} {{ joplin_domain }} {
     import common
+    # Prevent joplin fail2ban
+    log_skip *
     reverse_proxy localhost:3003
 }
