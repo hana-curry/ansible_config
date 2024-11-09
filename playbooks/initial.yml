@@ -1,0 +1,44 @@
+---
+- name: Setup basic services (before port changes)
+  hosts: all
+  become: true
+  vars:
+    # System
+    domain: woomy.be
+    system_user: woomy
+    docker_user: docker
+    services_dirname: services
+
+    # Forgejo
+    gitea_app_name: Woomy's git
+    gitea_proto: https
+    gitea_domain: git.{{ domain }}
+    gitea_mailer_from_email: git@{{ domain }}
+    gitea_register_email_confirm: true
+
+    # FreshRSS
+    rss_domain: rss.{{ domain }}
+
+    # Joplin
+    joplin_proto: https
+    joplin_domain: joplin.{{ domain }}
+    joplin_mailer_noreply: joplin@{{ domain }}
+
+    # NextCloud
+    nextcloud_domain: nextcloud.{{ domain }}
+    nextcloud_trusted_domains: www.{{ nextcloud_domain }} {{ nextcloud_domain }}
+    nextcloud_mail_from: nextcloud
+
+    # Vaultwarden
+    vaultwarden_proto: https
+    vaultwarden_domain: bitwarden.{{ domain }}
+    vaultwarden_smtp_from: vaultwarden@{{ domain }}
+  roles:
+    - timezone
+    - hostname
+    - dnf
+    - users
+    - journal
+    - firewall
+    - fail2ban
+    - sshd_config
