@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directories:
+      - /playbooks/roles/forgejo/files
+      - /playbooks/roles/freshrss/files
+      - /playbooks/roles/vaultwarden/files
+      - /playbooks/roles/joplin/files
+      - /playbooks/roles/nextcloud/files
+      - /playbooks/roles/fiibot_id/files
+      - /playbooks/roles/fiibot_interservers/files
+      - /playbooks/roles/fiibot_logger/files
+      - /playbooks/roles/fiibot_moderation/files
+      - /playbooks/roles/fiibot_tm/files
+    schedule:
+      interval: daily
+
