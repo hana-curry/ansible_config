@@ -1,6 +1,7 @@
+---
 version: 2
 updates:
-  - package-ecosystem: "docker"
+  - package-ecosystem: docker
     directories:
       - /playbooks/roles/forgejo/files
       - /playbooks/roles/freshrss/files
@@ -14,4 +15,3 @@ updates:
       - /playbooks/roles/fiibot_tm/files
     schedule:
       interval: daily
-
