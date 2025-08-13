@@ -1,6 +1,9 @@
 # venv
 venv
 
+# Ansible
+.ansible
+
 # Vagrant VMs
 .vagrant
 
