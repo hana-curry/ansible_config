@@ -2,3 +2,9 @@
 - name: Set system timezone
   community.general.timezone:
     name: Europe/Brussels
+
+- name: Start and enable systemd-timesyncd.service
+  ansible.builtin.systemd:
+    name: systemd-timesyncd.service
+    state: started
+    enabled: true

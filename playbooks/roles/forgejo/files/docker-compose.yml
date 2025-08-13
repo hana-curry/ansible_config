@@ -1,7 +1,7 @@
 ---
 services:
   app:
-    image: codeberg.org/forgejo/forgejo:9.0.1-rootless
+    image: codeberg.org/forgejo/forgejo:11.0.1-rootless
     env_file: .env
     restart: always
     volumes:
@@ -16,7 +16,7 @@ services:
       - db
 
   db:
-    image: postgres:16.4-alpine
+    image: postgres:17.5-alpine
     env_file: .env
     restart: always
     volumes:

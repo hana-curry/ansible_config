@@ -1,7 +1,7 @@
 ---
 services:
   bot:
-    image: ghcr.io/federation-interservices-d-informatique/fiibot-interservers:1.1.5
+    image: ghcr.io/federation-interservices-d-informatique/fiibot-interservers:1.2.0
     env_file: .env
     restart: always
     volumes:
@@ -11,7 +11,7 @@ services:
       - db
 
   db:
-    image: postgres:16.4-alpine
+    image: postgres:17.5-alpine
     env_file: .env
     restart: always
     ports:

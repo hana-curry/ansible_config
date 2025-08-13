@@ -2,13 +2,14 @@
 # PostgreSQL is needed by borg for running pg_dump
 - name: Install PostgreSQL
   ansible.builtin.dnf:
-    name: postgresql16
+    name: postgresql17
     state: latest
 
 - name: Setup borg backup
   ansible.builtin.import_role:
     name: borgbase.ansible_role_borgbackup
   vars:
+    borgmatic_relocated_repo_access_is_ok: true
     borgmatic_timer: systemd
     borgmatic_timer_hour: 03
     borgmatic_timer_minute: 05
