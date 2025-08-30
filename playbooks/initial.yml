@@ -5,7 +5,11 @@
   vars:
     # System
     domain: woomy.be
-    system_user: woomy
+    
+    system_users: 
+      - woomy
+      - polyrhachis
+
     docker_user: docker
     services_dirname: services
 

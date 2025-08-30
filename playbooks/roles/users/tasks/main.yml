@@ -3,13 +3,17 @@
   ansible.builtin.group:
     name: sudo
 
-- name: Register system user info
+- name: Register system users info
   ansible.builtin.user:
-    name: "{{ system_user }}"
+    name: "{{ item }}"
     shell: /bin/bash
     groups: sudo, systemd-journal, wheel
     append: true
-  register: system_user_info
+    password: "{{ users_passwords[user_idx] }}"
+  register: system_users_info
+  loop: "{{ system_users }}"
+  loop_control:
+    index_var: user_idx
 
 - name: Register Docker user info
   ansible.builtin.user:
