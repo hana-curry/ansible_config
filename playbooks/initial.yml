@@ -9,13 +9,6 @@
     docker_user: docker
     services_dirname: services
 
-    # Forgejo
-    gitea_app_name: Woomy's git
-    gitea_proto: https
-    gitea_domain: git.{{ domain }}
-    gitea_mailer_from_email: git@{{ domain }}
-    gitea_register_email_confirm: true
-
     # FreshRSS
     rss_domain: rss.{{ domain }}
 

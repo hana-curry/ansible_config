@@ -26,11 +26,6 @@
         - echo "`date` - Finished backup."
         - ssh -p {{ borg_ssh_port }} {{ borg_ssh_user }}@{{ borg_ssh_host }} 'sudo poweroff'
       postgresql_databases:
-        - name: gitea
-          hostname: 127.0.0.1
-          port: 6900
-          password: "{{ gitea_postgres_pw }}"
-          username: gitea
         - name: joplin
           hostname: 127.0.0.1
           port: 6901
