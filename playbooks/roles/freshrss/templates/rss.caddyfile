@@ -1,4 +1,0 @@
-{{ rss_domain }} www.{{ rss_domain }} {
-    import common
-    reverse_proxy localhost:3001
-}

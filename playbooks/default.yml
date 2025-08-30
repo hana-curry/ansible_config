@@ -9,9 +9,6 @@
     docker_user: docker
     services_dirname: services
 
-    # FreshRSS
-    rss_domain: rss.{{ domain }}
-
     # Joplin
     joplin_proto: https
     joplin_domain: joplin.{{ domain }}
@@ -37,7 +34,6 @@
     - sshd_config
     - caddy
     - docker
-    - freshrss
     - vaultwarden
     - joplin
     - static
