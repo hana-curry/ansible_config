@@ -5,6 +5,12 @@
     name: postgresql17
     state: latest
 
+# Build dependency
+- name: Install python-devel
+  ansible.builtin.dnf:
+    name: python3-devel
+    state: latest
+
 - name: Setup borg backup
   ansible.builtin.import_role:
     name: borgbase.ansible_role_borgbackup
