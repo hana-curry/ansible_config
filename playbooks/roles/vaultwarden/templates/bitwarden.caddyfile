@@ -1,4 +1,4 @@
-{{ vaultwarden_domain }} www.{{ vaultwarden_domain }} {
+{{ vaultwarden_main_domain }} {{ vaultwarden_all_domains }} {
     import common
     reverse_proxy localhost:3002
 }

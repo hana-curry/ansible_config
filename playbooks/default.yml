@@ -4,8 +4,9 @@
   become: true
   vars:
     # System
-    domain: woomy.be
-    domain_2: colle.dev
+    woomy_domain: woomy.be
+    colle_domain: colle.dev
+    woomy_user: woomy
     system_users: 
       - woomy
       - polyrhachis
@@ -15,18 +16,20 @@
 
     # Joplin
     joplin_proto: https
-    joplin_domain: joplin.{{ domain }}
-    joplin_mailer_noreply: joplin@{{ domain }}
+    joplin_main_domain: joplin.{{ woomy_domain }}
+    joplin_all_domains: www.{{ joplin_main_domain }} joplin.{{ colle_domain }}
+    joplin_mailer_noreply: joplin@{{ woomy_domain }}
 
     # NextCloud
-    nextcloud_domain: nextcloud.{{ domain }}
-    nextcloud_trusted_domains: www.{{ nextcloud_domain }} {{ nextcloud_domain }}
+    nextcloud_domain: nextcloud.{{ woomy_domain }}
+    nextcloud_trusted_domains: www.{{ nextcloud_domain }} {{ nextcloud_domain }} nextcloud.{{ colle_domain }}
     nextcloud_mail_from: nextcloud
 
     # Vaultwarden
     vaultwarden_proto: https
-    vaultwarden_domain: bitwarden.{{ domain }}
-    vaultwarden_smtp_from: vaultwarden@{{ domain }}
+    vaultwarden_main_domain: bitwarden.{{ woomy_domain }}
+    vaultwarden_all_domains: www.bitwarden.{{ woomy_domain }}
+    vaultwarden_smtp_from: vaultwarden@{{ woomy_domain }}
   roles:
     - timezone
     - hostname

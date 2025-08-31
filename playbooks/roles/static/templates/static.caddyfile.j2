@@ -1,7 +1,7 @@
-www.{{ domain }} {{ domain }} {
+www.{{ woomy_domain }} {{ woomy_domain }} {
     import common
     handle {
-        root * {{ static_path }}/{{ domain }}
+        root * {{ static_path }}/{{ woomy_domain }}
         file_server
     }
     handle_path /.well-known/* {
@@ -11,7 +11,7 @@ www.{{ domain }} {{ domain }} {
     }
 }
 
-files.{{ domain }} www.files.{{ domain }} {
+files.{{ woomy_domain }} www.files.{{ woomy_domain }} {
     import common
     handle {
         root * {{ static_path }}/files

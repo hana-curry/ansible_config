@@ -13,57 +13,61 @@
     state: directory
     path: "{{ static_path }}"
     mode: "0775"
-    owner: "{{ system_user }}"
-    group: "{{ system_user }}"
+    owner: "{{ woomy_user }}"
+    group: www-data
 
 - name: Clone pages
   become: true
-  become_user: "{{ system_user }}"
+  become_user: "{{ woomy_user }}"
   ansible.builtin.git:
     repo: https://github.com/Woomymy/{{ item }}
     dest: "{{ static_path }}/{{ item }}"
   with_items:
-    - "{{ domain }}"
+    - "{{ woomy_domain }}"
     - custom_pages
 
 - name: Create well-known dirs
   become: true
-  become_user: "{{ system_user }}"
+  become_user: "{{ woomy_user }}"
   ansible.builtin.file:
     state: directory
     path: "{{ static_path }}/well-known/openpgpkey/hu/"
-    mode: "0755"
+    mode: "0775"
     recurse: true
+    group: www-data
 
 - name: Create openpgp policy file
   become: true
-  become_user: "{{ system_user }}"
+  become_user: "{{ woomy_user }}"
   ansible.builtin.copy:
     content: ""
     dest: "{{ static_path }}/well-known/openpgpkey/policy"
-    mode: "0755"
+    mode: "0775"
+    group: www-data
 
 - name: Copy openpgp file
   become: true
-  become_user: "{{ system_user }}"
+  become_user: "{{ woomy_user  }}"
   ansible.builtin.copy:
     src: mscrnig88g4mzagk5ytb4ioz7yg51f67
     dest: "{{ static_path }}/well-known/openpgpkey/hu/mscrnig88g4mzagk5ytb4ioz7yg51f67"
-    mode: "0755"
+    mode: "0775"
+    group: www-data
 
 - name: Create files.woomy.be directories
   become: true
-  become_user: "{{ system_user }}"
+  become_user: "{{ woomy_user }}"
   ansible.builtin.file:
     path: "{{ static_path }}/files"
     state: directory
-    mode: "0755"
+    mode: "0775"
+    group: www-data
 
 - name: Install static caddy config
   ansible.builtin.template:
     src: static.caddyfile.j2
     dest: /etc/caddy/sites/static.caddyfile
-    mode: "0755"
+    mode: "0775"
   notify:
     - Restart caddy.service
 

@@ -3,11 +3,15 @@
   ansible.builtin.group:
     name: sudo
 
+- name: Ensure group "somegroup" exists
+  ansible.builtin.group:
+    name: www-data
+
 - name: Register system users info
   ansible.builtin.user:
     name: "{{ item }}"
     shell: /bin/bash
-    groups: sudo, systemd-journal, wheel
+    groups: sudo, systemd-journal, wheel, www-data
     append: true
     password: "{{ users_passwords[user_idx] }}"
   register: system_users_info
