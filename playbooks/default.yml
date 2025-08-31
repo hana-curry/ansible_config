@@ -7,7 +7,7 @@
     woomy_domain: woomy.be
     colle_domain: colle.dev
     woomy_user: woomy
-    system_users: 
+    system_users:
       - woomy
       - polyrhachis
 
@@ -22,7 +22,7 @@
 
     # NextCloud
     nextcloud_domain: nextcloud.{{ woomy_domain }}
-    nextcloud_trusted_domains: www.{{ nextcloud_domain }} {{ nextcloud_domain }} nextcloud.{{ colle_domain }}
+    nextcloud_trusted_domains: www.{{ nextcloud_domain }} nextcloud.{{ colle_domain }}
     nextcloud_mail_from: nextcloud
 
     # Vaultwarden
