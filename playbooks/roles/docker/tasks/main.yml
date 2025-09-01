@@ -11,11 +11,6 @@
     docker_compose: true
     docker_allow_privileged_ports: true
     docker_rootless_service_template: docker_rootless.service.custom.j2
-    docker_compose_arch: aarch64
-    docker_url: https://download.docker.com/linux/static/stable/aarch64
-    docker_release_shasum: 836bbaea204251922ec4dc79dbe81e323ccedaa726efc01f62683f547d721871
-    docker_release_rootless_shasum: 9a98aded51f811260aac894845cef194d62ef4381520db9486f7a9094d692844
-    docker_compose_release_shasum: a91e930a076b91e6c69f11d1dbe3c06729ae765fb9dbb3f97cb808e784647399
 
 - name: Set services homedir variable
   ansible.builtin.set_fact:
