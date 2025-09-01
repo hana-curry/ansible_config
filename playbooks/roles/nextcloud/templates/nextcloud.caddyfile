@@ -1,4 +1,4 @@
-{{ nextcloud_trusted_domains }} {
+{{ nextcloud_domain }} {{ nextcloud_trusted_domains }} {
     import common
     reverse_proxy localhost:3004
 }
