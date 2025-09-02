@@ -31,22 +31,54 @@
     vaultwarden_all_domains: www.bitwarden.{{ woomy_domain }}
     vaultwarden_smtp_from: vaultwarden@{{ woomy_domain }}
   roles:
-    - timezone
-    - hostname
-    - dnf
-    - users
-    - journal
-    - firewall
-    - fail2ban
-    - sshd_config
-    - caddy
-    - docker
-    - vaultwarden
-    - joplin
-    - static
-    - nextcloud
-    - fiibot_id
-    - fiibot_interservers
-    - fiibot_logger
-    - fiibot_moderation
-    - borg
+    - role: timezone
+      tags: sysconfig
+    - role: hostname
+      tags: sysconfig
+    - role: dnf
+      tags:
+        - sysconfig
+        - packages
+    - role: users
+      tags:
+        - sysconfig
+        - users
+        - static
+    - role: journal
+      tags: sysconfig
+    - role: firewall
+      tags: sysconfig
+    - role: fail2ban
+      tags: sysconfig
+    - role: sshd_config
+      tags: sysconfig
+    - role: caddy
+      tags: web
+    - role: docker
+      tags:
+        - docker
+        - vaultwarden
+        - joplin
+        - nextcloud
+        - fiibot_id
+        - fiibot_interservers
+        - fiibot_logger
+        - fiibot_moderation
+    - role: vaultwarden
+      tags: vaultwarden
+    - role: joplin
+      tags: joplin
+    - role: static
+      tags: static
+    - role: nextcloud
+      tags: nextcloud
+    - role: fiibot_id
+      tags: fiibot_id
+    - role: fiibot_interservers
+      tags: fiibot_interservers
+    - role: fiibot_logger
+      tags: fiibot_logger
+    - role: fiibot_moderation
+      tags: fiibot_moderation
+    - role: borg
+      tags: borg
