@@ -17,7 +17,7 @@ jobs:
           cache: 'pip'
       - name: Install dependencies
         run: |
-          pip install ansible-lint yamllint
+          pip install ansible ansible-lint yamllint
       - name: Lint Ansible
         run: |
           ansible-lint
