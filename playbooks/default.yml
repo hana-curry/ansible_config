@@ -64,6 +64,7 @@
         - fiibot_interservers
         - fiibot_logger
         - fiibot_moderation
+        - monitoring
     - role: vaultwarden
       tags: vaultwarden
     - role: joplin
@@ -82,3 +83,5 @@
       tags: fiibot_moderation
     - role: borg
       tags: borg
+    - role: prometheus
+      tags: monitoring
